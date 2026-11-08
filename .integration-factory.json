@@ -1,349 +1,62 @@
 {
   "schemaVersion": 1,
-  "status": "ready",
-  "verification": "mock-only",
-  "releaseEligible": true,
-  "maintainer": "jannikco",
-  "license": "MIT",
-  "sourceRevision": "7e6386ced93a58de6e078473dd1a1fa41002f45fc69c71c4a3c5d8264b1c998a",
-  "evidence": [
-    "Actual tools/call and direct-provider request contract tests"
-  ],
-  "provenance": [
-    "https://www.assemblyai.com/docs/openapi.json"
-  ],
   "id": "assemblyai-mcp",
   "kind": "provider-connector",
   "product": "pipmcp",
   "title": "AssemblyAI MCP server",
-  "description": "Find existing transcripts and submit an authorized audio URL for asynchronous transcription, then poll completion.",
-  "operationIds": [
-    "assemblyai_list_transcripts",
-    "assemblyai_get_transcript",
-    "assemblyai_submit_transcript"
+  "description": "Use AssemblyAI with AI agents through one PipMCP API key, actual hosted schemas and governed execution.",
+  "status": "ready",
+  "verification": "mock-only",
+  "releaseEligible": true,
+  "operationIds": [],
+  "maintainer": "jannikco",
+  "license": "MIT",
+  "attributionSlug": "github-assemblyai-mcp",
+  "sourceRevision": "699c9a851f50bac926ccb3330cef9faa370843494bf5817d2d6b7dfc38185ac1",
+  "qualityVersion": 2,
+  "artifactType": "connector",
+  "evidence": [
+    "Gateway HTTP transport fixtures",
+    "Generated stdio wrapper discovery/call fixtures"
   ],
+  "provenance": [
+    "https://www.assemblyai.com/docs/openapi.json"
+  ],
+  "utility": {
+    "problem": "Find existing transcripts and submit an authorized audio URL for asynchronous transcription, then poll completion.",
+    "output": "Actual hosted tool schemas and durable governed execution receipts"
+  },
   "appSlug": "assemblyai",
   "appName": "AssemblyAI",
-  "providerDocs": "https://www.assemblyai.com/docs/openapi.json",
-  "providerWebsite": "https://www.assemblyai.com/",
-  "authentication": {
-    "type": "api_key_header",
-    "requiredCredentialFields": [
-      "api_key"
-    ],
-    "settings": {
-      "parameter_name": "Authorization"
-    },
-    "requiredHeaderNames": [],
-    "helpUrl": "https://www.assemblyai.com/docs/pre-recorded-audio/getting-started/transcribe-an-audio-file",
-    "tenantRequired": false,
-    "accountParameterNames": []
-  },
-  "attributionSlug": "github-assemblyai-mcp",
-  "artifactType": "connector",
-  "qualityVersion": 2,
   "connectorId": "assemblyai",
-  "connector": {
-    "id": "assemblyai",
-    "name": "AssemblyAI",
-    "version": "0.1.0",
-    "baseUrl": "https://api.assemblyai.com",
-    "auth": {
-      "type": "header",
-      "env": "ASSEMBLYAI_API_KEY",
-      "header": "Authorization"
-    },
-    "tools": [
-      {
-        "name": "assemblyai_list_transcripts",
-        "description": "assemblyai list transcripts",
-        "method": "GET",
-        "path": "/v2/transcript",
-        "readOnly": true,
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "limit": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 100
-            }
-          },
-          "required": [],
-          "additionalProperties": false
-        },
-        "bindings": {
-          "path": [],
-          "query": {
-            "limit": "limit"
-          },
-          "body": {}
-        },
-        "approvalRequired": false,
-        "provenance": [
-          "https://www.assemblyai.com/docs/openapi.json"
-        ],
-        "evidence": {
-          "state": "documented",
-          "providerLiveValidation": "not-run"
-        },
-        "sampleArguments": {
-          "limit": 5
-        }
-      },
-      {
-        "name": "assemblyai_get_transcript",
-        "description": "assemblyai get transcript",
-        "method": "GET",
-        "path": "/v2/transcript/{transcript_id}",
-        "readOnly": true,
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "transcript_id": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "transcript_id"
-          ],
-          "additionalProperties": false
-        },
-        "bindings": {
-          "path": [
-            "transcript_id"
-          ],
-          "query": {},
-          "body": {}
-        },
-        "approvalRequired": false,
-        "provenance": [
-          "https://www.assemblyai.com/docs/openapi.json"
-        ],
-        "evidence": {
-          "state": "documented",
-          "providerLiveValidation": "not-run"
-        },
-        "sampleArguments": {
-          "transcript_id": "REPLACE_WITH_AUTHORIZED_TRANSCRIPT_ID"
-        }
-      },
-      {
-        "name": "assemblyai_submit_transcript",
-        "description": "Submit an asynchronous transcription; poll get_transcript for completion. May consume provider credits.",
-        "method": "POST",
-        "path": "/v2/transcript",
-        "readOnly": false,
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "audio_url": {
-              "type": "string",
-              "format": "uri"
-            },
-            "language_detection": {
-              "type": "boolean"
-            }
-          },
-          "required": [
-            "audio_url"
-          ],
-          "additionalProperties": false
-        },
-        "bindings": {
-          "path": [],
-          "query": {},
-          "body": {
-            "audio_url": "audio_url",
-            "language_detection": "language_detection"
-          }
-        },
-        "approvalRequired": true,
-        "provenance": [
-          "https://www.assemblyai.com/docs/openapi.json"
-        ],
-        "evidence": {
-          "state": "documented",
-          "providerLiveValidation": "not-run"
-        },
-        "sampleArguments": {
-          "audio_url": "https://example.com/replace-with-authorized-audio.mp3"
-        }
-      }
-    ],
-    "workflow": {
-      "name": "assemblyai-workflow",
-      "description": "Find existing transcripts and submit an authorized audio URL for asynchronous transcription, then poll completion.",
-      "steps": [
-        "assemblyai_list_transcripts",
-        "assemblyai_get_transcript",
-        "assemblyai_submit_transcript"
-      ]
-    },
-    "provenance": [
-      "https://www.assemblyai.com/docs/openapi.json"
-    ],
-    "sourceEvidence": {
-      "state": "documented",
-      "providerLiveValidation": "not-run",
-      "checkedAt": "2026-11-08",
-      "operationCount": 3,
-      "kind": "official-openapi",
-      "sha256": "7158678247271dd8ff942986322f5db0139b859197e8ae84bf9fe651af079653"
-    },
-    "setup": {
-      "requiresPipMcpAccount": false,
-      "credentialsHelpUrl": "https://www.assemblyai.com/docs/pre-recorded-audio/getting-started/transcribe-an-audio-file",
-      "instructions": "Sign in to the AssemblyAI dashboard and copy your API key from the API Keys section (or create a new one). The key is sent as-is in the Authorization header."
-    },
-    "sampleWarning": "Example IDs are placeholders, not known provider records. Replace them with authorized sandbox/account IDs. Contact emails, file URLs and recipient numbers must be replaced with data you are authorized to use. Examples never authorize a write.",
-    "repoId": "assemblyai-mcp",
-    "appSlug": "assemblyai",
-    "product": "pipmcp",
-    "artifactType": "connector",
-    "sourceRevision": "7e6386ced93a58de6e078473dd1a1fa41002f45fc69c71c4a3c5d8264b1c998a",
-    "capabilityEvidence": {
-      "local": {
-        "level": "Tested",
-        "operations": [
-          {
-            "name": "assemblyai_list_transcripts",
-            "level": "Tested",
-            "evidenceRefs": [
-              "Provider request/stdio contract tests"
-            ],
-            "method": "contract-fixture"
-          },
-          {
-            "name": "assemblyai_get_transcript",
-            "level": "Tested",
-            "evidenceRefs": [
-              "Provider request/stdio contract tests"
-            ],
-            "method": "contract-fixture"
-          },
-          {
-            "name": "assemblyai_submit_transcript",
-            "level": "Tested",
-            "evidenceRefs": [
-              "Provider request/stdio contract tests"
-            ],
-            "method": "contract-fixture"
-          }
-        ],
-        "evidenceRefs": [
-          "Provider request/stdio contract tests"
-        ],
-        "mode": "local"
-      },
-      "managed": {
-        "level": "Documented",
-        "operations": [
-          {
-            "name": "assemblyai_list_transcripts",
-            "level": "Documented",
-            "evidenceRefs": [],
-            "method": "documentation"
-          },
-          {
-            "name": "assemblyai_get_transcript",
-            "level": "Documented",
-            "evidenceRefs": [],
-            "method": "documentation"
-          },
-          {
-            "name": "assemblyai_submit_transcript",
-            "level": "Documented",
-            "evidenceRefs": [],
-            "method": "documentation"
-          }
-        ],
-        "evidenceRefs": [],
-        "mode": "managed"
-      }
-    },
-    "authentication": {
-      "type": "api_key_header",
-      "requiredCredentialFields": [
-        "api_key"
-      ],
-      "settings": {
-        "parameter_name": "Authorization"
-      },
-      "requiredHeaderNames": [],
-      "helpUrl": "https://www.assemblyai.com/docs/pre-recorded-audio/getting-started/transcribe-an-audio-file",
-      "tenantRequired": false,
-      "accountParameterNames": []
-    },
-    "managedAvailability": {
-      "status": "listed",
-      "checkedAt": "2026-11-08T12:29:10.433747+00:00"
-    }
-  },
+  "executionAuthority": "pipmcp-gateway",
+  "version": "1.0.0",
+  "agentReady": true,
   "capabilityEvidence": {
     "local": {
       "level": "Tested",
       "operations": [
         {
-          "name": "assemblyai_list_transcripts",
+          "name": "gateway_transport",
           "level": "Tested",
+          "method": "contract-fixture",
           "evidenceRefs": [
-            "Provider request/stdio contract tests"
-          ],
-          "method": "contract-fixture"
-        },
-        {
-          "name": "assemblyai_get_transcript",
-          "level": "Tested",
-          "evidenceRefs": [
-            "Provider request/stdio contract tests"
-          ],
-          "method": "contract-fixture"
-        },
-        {
-          "name": "assemblyai_submit_transcript",
-          "level": "Tested",
-          "evidenceRefs": [
-            "Provider request/stdio contract tests"
-          ],
-          "method": "contract-fixture"
+            "Generated gateway/stdio fixtures"
+          ]
         }
       ],
       "evidenceRefs": [
-        "Provider request/stdio contract tests"
+        "Generated gateway/stdio fixtures"
       ],
       "mode": "local"
     },
     "managed": {
       "level": "Documented",
-      "operations": [
-        {
-          "name": "assemblyai_list_transcripts",
-          "level": "Documented",
-          "evidenceRefs": [],
-          "method": "documentation"
-        },
-        {
-          "name": "assemblyai_get_transcript",
-          "level": "Documented",
-          "evidenceRefs": [],
-          "method": "documentation"
-        },
-        {
-          "name": "assemblyai_submit_transcript",
-          "level": "Documented",
-          "evidenceRefs": [],
-          "method": "documentation"
-        }
-      ],
+      "operations": [],
       "evidenceRefs": [],
       "mode": "managed"
     }
   },
-  "utility": {
-    "problem": "Find existing transcripts and submit an authorized audio URL for asynchronous transcription, then poll completion.",
-    "output": "Actual provider API results through local MCP tools"
-  },
   "factory": "leadadapter-pipmcp",
-  "generatorVersion": 2
+  "generatorVersion": 3
 }

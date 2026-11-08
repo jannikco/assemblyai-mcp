@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "product": "pipmcp",
+  "credential": "PIPMCP_API_KEY",
+  "skills": [
+    {
+      "name": "pipmcp-assemblyai",
+      "description": "Connect AI agents to AssemblyAI using one PipMCP API key and actual hosted tool discovery."
+    }
+  ],
+  "files": {
+    "skills/pipmcp-assemblyai/SKILL.md": "5a829e2a2f0b828eb35121289466b8cf25ec27aa371aa56149cd8728b36cd4bf"
+  }
+}
